@@ -15,7 +15,7 @@ class DbPathConnect(object):
         return conn
 
     def _connect(self, path, init_file=None):
-        initialize = init_file and os.path.exists(path)
+        initialize = init_file and not os.path.exists(path)
         conn = self._connection_class(path)
 
         if initialize:
