@@ -1,7 +1,6 @@
 from contextlib import closing
 import os
 
-from . import DbFile
 from ..error import DbError
 
 
@@ -39,8 +38,3 @@ class DbPathConnect(object):
             cursor.execute('''PRAGMA foreign_keys = ON''')
             conn.commit()
         return conn
-
-
-class DbFileConnection(DbPathConnect):
-    def __init__(self):
-        super(DbFileConnection, self).__init__(DbFile)

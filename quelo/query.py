@@ -16,6 +16,6 @@ def get_value(c, statement, query_tuple=None):
     return result[0] if result else None
 
 
-def get_value_rows(c, statement, query_tuple=None):
+def get_column(c, statement, query_tuple=None):
     results = get_results(c, statement, query_tuple)
     return [result[0] for result in results] if results else []

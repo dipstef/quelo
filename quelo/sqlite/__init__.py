@@ -5,7 +5,7 @@ from pysqlite2 import dbapi2 as sqlite3
 from ..statement import ExecuteScript, Commit, Execute, Select, IterateSelect, CloseCursor
 
 
-def connect_db(path):
+def sqlite_connect(path):
     conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
     return conn
 
@@ -32,7 +32,7 @@ class DbFile(DbConnection):
 
     def __init__(self, path):
         super(DbFile, self).__init__()
-        self._conn = connect_db(path)
+        self._conn = sqlite_connect(path)
 
     def cursor(self):
         return DbCursor(self._conn.cursor())
