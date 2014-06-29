@@ -8,14 +8,14 @@ def _test_connections():
     path = os.path.join(os.path.dirname(__file__), 'test.db')
     init_file = os.path.join(os.path.dirname(__file__), 'test.sql')
 
-    with quelo.connect(path, init_file=init_file) as conn1:
+    with quelo.connect(path, init_file=init_file) as conn:
 
-        with conn1.cursor() as cursor:
+        with conn.cursor() as cursor:
             cursor.execute('''delete from test''')
-            conn1.commit()
+            conn.commit()
 
             cursor.execute('''insert into test(value) values(?) ''', (1, ))
-            conn1.commit()
+            conn.commit()
 
     with quelo.connect(path) as conn:
         with conn.cursor() as cursor:
