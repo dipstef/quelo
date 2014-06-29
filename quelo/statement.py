@@ -1,5 +1,3 @@
-from unicoder import encoded
-
 from .sqlite.execute import Sqlite3Statement
 
 
@@ -36,7 +34,7 @@ class ExecuteScript(ConnectionStatement):
         conn.executescript(self._script)
 
     def __str__(self):
-        return encoded(unicode(self))
+        return unicode(self).encode('utf-8')
 
     def __unicode__(self):
         class_name = self.__class__.__name__
@@ -74,7 +72,7 @@ class Execute(CursorStatement):
         cursor.execute(self._query, self._args)
 
     def __str__(self):
-        return encoded(unicode(self))
+        return unicode(self).encode('utf-8')
 
     def __unicode__(self):
         class_name = self.__class__.__name__

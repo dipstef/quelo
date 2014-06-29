@@ -1,6 +1,3 @@
-from unicoder import encoded
-
-
 class DbError(Exception):
     def __init__(self, *args, **kwargs):
         super(DbError, self).__init__(*args, **kwargs)
@@ -13,7 +10,7 @@ class StatementException(DbError):
         self.cause = error
 
     def __str__(self):
-        return encoded(self.message)
+        return self.message.encode('utf-8')
 
 
 class StatementSyntaxError(StatementException):
