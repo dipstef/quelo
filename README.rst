@@ -1,7 +1,7 @@
 Quelo
 =====
 
-A friendly wrapper for Sqlite3
+A friendly wrapper for ``sqlite3``
 
 Features
 ========
