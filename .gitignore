@@ -1,5 +1,8 @@
 *.pyc
+*.db
 .idea/**
 .DS_Store
 **@eaDir
 build
+dist
+*.egg-info
