@@ -3,27 +3,28 @@ class DbError(Exception):
         super(DbError, self).__init__(*args, **kwargs)
 
 
-class StatementException(DbError):
+class StatementError(DbError):
     def __init__(self, statement, error, *args):
-        super(StatementException, self).__init__(statement, error, *args)
-        self.message = '%s in: %s' % (self.__class__.__name__, str(statement))
+        statement = str(statement)
+        super(StatementError, self).__init__(statement, error, *args)
+        self.message = '%s in: %s' % (self.__class__.__name__, statement)
         self.cause = error
 
     def __str__(self):
         return self.message.encode('utf-8')
 
 
-class StatementSyntaxError(StatementException):
+class StatementSyntaxError(StatementError):
     def __init__(self, statement, error, *args):
         super(StatementSyntaxError, self).__init__(statement, error, *args)
 
 
-class TableNotExisting(StatementException):
+class TableNotExisting(StatementError):
     def __init__(self, statement, error):
         super(TableNotExisting, self).__init__(statement, error)
 
 
-class StatementIntegrityError(StatementException):
+class StatementIntegrityError(StatementError):
     def __init__(self, statement, error, *args):
         super(StatementIntegrityError, self).__init__(statement, error, *args)
 
@@ -50,7 +51,7 @@ class UniqueColumnsConstraintViolation(UniqueConstraintViolation):
         self.message = '%s on %s in: %s' % (self.__class__.__name__, columns, str(statement))
 
 
-class StatementProgrammingError(StatementException):
+class StatementProgrammingError(StatementError):
     def __init__(self, statement, error):
         super(StatementProgrammingError, self).__init__(statement, error)
 

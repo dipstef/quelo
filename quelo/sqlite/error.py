@@ -1,6 +1,6 @@
 import re
 
-from ..error import DbError, StatementException, StatementSyntaxError, TableNotExisting, StatementIntegrityError, \
+from ..error import DbError, StatementError, StatementSyntaxError, TableNotExisting, StatementIntegrityError, \
     ForeignKeyError, PrimaryKeyViolation, UniqueColumnsConstraintViolation, ClosedCursor
 
 
@@ -9,12 +9,12 @@ class DatabaseLocked(DbError):
         super(DatabaseLocked, self).__init__('Database Locked while performing: %s ' % statement, *args)
 
 
-class DatabaseCorrupted(StatementException):
+class DatabaseCorrupted(StatementError):
     def __init__(self, statement, *args):
         super(DatabaseCorrupted, self).__init__(statement, *args)
 
 
-class DatabaseIOError(StatementException):
+class DatabaseIOError(StatementError):
     def __init__(self, statement, *args):
         super(DatabaseIOError, self).__init__(statement, *args)
 
@@ -29,7 +29,7 @@ def operational_error(statement, e):
     elif 'disk I/O error' in e.message:
         return DatabaseIOError(statement, e)
     else:
-        return StatementException(statement, e)
+        return StatementError(statement, e)
 
 
 _unique_violation = re.compile('column(s)?\s+(.+)\s+(is|are) not unique')
@@ -70,4 +70,4 @@ def database_error(statement, e):
 
 
 def exception_on_statement(statement, e):
-    return StatementException(statement, e)
+    return StatementError(statement, e)
