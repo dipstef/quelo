@@ -29,7 +29,7 @@ class DbPathConnect(object):
                 statements = script_init.read()
                 conn.execute_script(statements)
                 conn.commit()
-        except DbError, e:
+        except (DbError, OSError, IOError), e:
             conn.close()
             os.remove(path)
             raise e
