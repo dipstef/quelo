@@ -7,7 +7,7 @@ class StatementError(DbError):
     def __init__(self, statement, error, *args):
         statement = str(statement)
         super(StatementError, self).__init__(statement, error, *args)
-        self.message = '%s in: %s' % (self.__class__.__name__, statement)
+        self.message = '%s: %s in: %s' % (self.__class__.__name__, error.message, statement)
         self.cause = error
 
     def __str__(self):
