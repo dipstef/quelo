@@ -1,6 +1,5 @@
-from contextlib import closing
-
 from pysqlite2 import dbapi2 as sqlite3
+from contextlib import closing
 
 from .types import convert_custom_types
 from ..statement import ExecuteScript, Commit, Execute, Select, IterateSelect, CloseCursor

@@ -35,7 +35,7 @@ settings = dict(
     url='https://github.com/dipstef/quelo',
     classifiers=CLASSIFIERS,
     keywords='sqlite3 database',
-    packages = ['quelo', 'quelo.sqlite'],
+    packages=['quelo', 'quelo.sqlite'],
     test_suite='tests',
     requires=['pysqlite2']
 )
