@@ -1,3 +1,6 @@
+import pickle
+
+
 class DbError(Exception):
     def __init__(self, *args, **kwargs):
         super(DbError, self).__init__(*args, **kwargs)
@@ -45,7 +48,7 @@ class PrimaryKeyViolation(UniqueConstraintViolation):
 
 
 class UniqueColumnsConstraintViolation(UniqueConstraintViolation):
-    def __init__(self, statement, columns, error):
+    def __init__(self, statement, error, columns):
         super(UniqueConstraintViolation, self).__init__(statement, error, columns)
         self.columns = columns
         self.message = '%s on %s in: %s' % (self.__class__.__name__, columns, str(statement))

@@ -44,7 +44,7 @@ def integrity_error(statement, e):
     else:
         columns = _unique_columns_violation(e.message)
         if columns:
-            return UniqueColumnsConstraintViolation(statement, columns, e)
+            return UniqueColumnsConstraintViolation(statement, e, columns)
 
     return StatementIntegrityError(statement, e)
 
