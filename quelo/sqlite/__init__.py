@@ -12,9 +12,8 @@ def sqlite_connect(path, foreign_keys=True):
     conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
 
     if foreign_keys:
-        with closing(conn.cursor()) as cursor:
-            cursor.execute('''PRAGMA foreign_keys = ON''')
-            conn.commit()
+        with conn:
+            conn.execute('''PRAGMA foreign_keys = ON''')
 
     return conn
 
