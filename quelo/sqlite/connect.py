@@ -1,4 +1,3 @@
-from contextlib import closing
 import os
 
 from ..error import DbError
@@ -11,7 +10,6 @@ class DbPathConnect(object):
 
     def __call__(self, path, init_file=None):
         conn = self._connect(path, init_file=init_file)
-        self._enable_foreign_keys(conn)
         return conn
 
     def _connect(self, path, init_file=None):
@@ -33,10 +31,3 @@ class DbPathConnect(object):
             conn.close()
             os.remove(path)
             raise e
-
-    @staticmethod
-    def _enable_foreign_keys(conn):
-        with closing(conn.cursor()) as cursor:
-            cursor.execute('''PRAGMA foreign_keys = ON''')
-            conn.commit()
-        return conn

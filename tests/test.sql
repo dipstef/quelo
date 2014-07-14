@@ -15,3 +15,16 @@ create table person (
     social_number         text not null,
     unique(social_number)
 );
+
+
+create table timestamp_value (
+    id                    integer not null primary key autoincrement,
+    value                 timestamp not null,
+    unique(value)
+);
+
+create table url (
+    id                    integer not null primary key autoincrement,
+    value                 text not null,
+    unique(value)
+);

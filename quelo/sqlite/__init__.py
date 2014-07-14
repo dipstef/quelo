@@ -2,11 +2,20 @@ from contextlib import closing
 
 from pysqlite2 import dbapi2 as sqlite3
 
+from .types import convert_custom_types
 from ..statement import ExecuteScript, Commit, Execute, Select, IterateSelect, CloseCursor
 
+convert_custom_types(sqlite3)
 
-def sqlite_connect(path):
+
+def sqlite_connect(path, foreign_keys=True):
     conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
+
+    if foreign_keys:
+        with closing(conn.cursor()) as cursor:
+            cursor.execute('''PRAGMA foreign_keys = ON''')
+            conn.commit()
+
     return conn
 
 
@@ -32,7 +41,7 @@ class DbFile(DbConnection):
 
     def __init__(self, path):
         super(DbFile, self).__init__()
-        self._conn = sqlite_connect(path)
+        self._conn = sqlite_connect(path, foreign_keys=True)
 
     def cursor(self):
         return DbCursor(self._conn.cursor())

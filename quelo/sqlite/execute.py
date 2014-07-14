@@ -31,7 +31,7 @@ class Sqlite3Statement(object):
             raise programming_error(self, e)
         except sqlite3.DatabaseError, e:
             raise database_error(self, e)
-        except BaseException, e:
+        except Exception, e:
             raise exception_on_statement(self, e)
 
     def _execute_statement(self, *args, **kwargs):
